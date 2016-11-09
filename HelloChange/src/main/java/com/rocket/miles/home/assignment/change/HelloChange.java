@@ -17,7 +17,7 @@ public class HelloChange {
 	private static HelloChange helloChange;
 
 	private HelloChange() {
-		helloChange = new HelloChange();
+		
 	}
 
 	/**
@@ -64,26 +64,32 @@ public class HelloChange {
 	 * 
 	 * @param num
 	 */
-	public void change(int num) {
+	public void change(int num,int start) {
 		Map<Integer, Integer> currMap = cashRegister.getMap();
-		if (num > cashRegister.getTotal()) {
+		int temp=num;
+		if (temp < cashRegister.getTotal()) {
 			Map<Integer, Integer> takeMap = new LinkedHashMap<Integer, Integer>();
 			int ratio = 0;
 			for (int billNbr : currMap.keySet()) {
-				ratio = num / billNbr;
-				if (ratio > 0 && ratio <= currMap.get(billNbr)) {
+				ratio = temp / billNbr;
+				if (billNbr<=start && ratio > 0 && ratio <= currMap.get(billNbr)) {
 					takeMap.put(billNbr, ratio);
-					num = num % billNbr;
+					temp = temp % billNbr;
 				} else {
 					takeMap.put(billNbr, 0);
 				}
 			}
-			if (num == 0) {
+			if (temp == 0) {
 				System.out.println(">>" + takeMap);
 				take(takeMap);
 			} else {
+				if(start/2==0){
 				System.out.println("Sorry! No Change...");
+				}else{
+					change(num,start/2);
+				}
 			}
+			return;
 		}
 		System.out.println(
 				"Change you are asking more than what we are having money(Not sure if I should've told this to customer!!)");

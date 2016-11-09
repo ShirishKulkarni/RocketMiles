@@ -51,7 +51,7 @@ public class HelloChangeMain {
 			case 4:
 				System.out.println("CHANGE>>Enter the change:");
 				opt = sc.nextInt();
-				h.change(opt);
+				h.change(opt,20);
 				h.show();
 				break;
 			case 5:
